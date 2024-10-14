@@ -77,11 +77,17 @@ bash:
 	docker compose exec app bash
 
 mysql:
-	docker compose exec db mysql -u root -p
+	docker compose exec db mysql -u root
 
 mysqldump:
-	docker compose exec db mysqldump -u root -p ${DB_DATABASE} > ${DB_DATABASE}.sql
-	
+	docker compose exec db mysqldump -u root ${DB_DATABASE} > ${DB_DATABASE}.sql
+
+psql:
+	sudo docker compose exec db psql -h ${DB_HOST} -p ${DB_PORT} -d ${DB_DATABASE} -U ${DB_USERNAME}
+
+pgdump:
+	sudo docker compose exec db pg_dump -h ${DB_HOST} -p ${DB_PORT} -d ${DB_DATABASE} -U ${DB_USERNAME} > ${DB_DATABASE}.dump
+
 jwt:
 	docker compose exec app php artisan jwt:secret
 

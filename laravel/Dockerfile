@@ -24,6 +24,11 @@ RUN apt-get update && apt-get install -y \
     docker-php-ext-install pdo_mysql mbstring zip exif pcntl gd sockets && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install Postgre PDO
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN groupadd -g 1000 www
