@@ -36,4 +36,4 @@ RUN composer install
 
 USER www
 
-CMD ["php-fpm"]
+CMD ["php", "artisan", "horizon"]

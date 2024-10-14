@@ -1,0 +1,4 @@
+- Add horizon logging on dashboard
+- Add laravel schedule
+- Add postgres variation on docker-compose
+- Add nginx ssl cert automatization

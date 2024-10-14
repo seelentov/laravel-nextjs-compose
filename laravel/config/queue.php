@@ -88,13 +88,6 @@ return [
 
     ],
 
-    'queues' => [
-        'default' => [
-            'connection' => 'rabbitmq',
-            'queue' => 'default',
-        ],
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Job Batching

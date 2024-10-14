@@ -5,8 +5,7 @@ destroy:
 	docker compose down --rmi all --volumes --remove-orphans
 
 init:
-	docker compose up -d
-	docker compose exec app composer install
+	@make up
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
 	docker compose exec app chmod -R 777 storage bootstrap/cache
@@ -14,6 +13,24 @@ init:
 
 up:
 	docker compose up -d
+
+horizon:
+	docker compose exec horizon nohup php artisan horizon
+
+horizon-status:
+	docker compose exec horizon php artisan horizon:status
+
+horizon-pause:
+	docker compose exec horizon php artisan horizon:pause
+
+horizon-continue:
+	docker compose exec horizon php artisan horizon:continue
+
+horizon-logs:
+	docker compose logs horizon
+
+horizon-logs:
+	docker compose logs horizon --follow
 
 stop:
 	docker compose stop
@@ -49,6 +66,12 @@ logs:
 
 watch:
 	docker compose logs --follow
+
+app-logs:
+	docker compose logs app
+
+app-watch:
+	docker compose logs app
 
 bash:
 	docker compose exec app bash
