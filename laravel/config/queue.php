@@ -32,7 +32,6 @@ return [
         'rabbitmq' => [
             'driver' => 'rabbitmq',
             'queue' => env('RABBITMQ_QUEUE', 'default'),
-            'connection' => PhpAmqpLib\Connection\AMQPLazyConnection::class,
             'hosts' => [
                 [
                     'host' => env('RABBITMQ_HOST', '127.0.0.1'),
@@ -42,6 +41,8 @@ return [
                     'vhost' => env('RABBITMQ_VHOST', '/'),
                 ],
             ],
+            'worker' => env('RABBITMQ_WORKER', 'horizon'),
+
         ],
 
         'sync' => [

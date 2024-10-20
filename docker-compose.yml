@@ -27,23 +27,23 @@ services:
     networks:
       - app
 
-  # horizon:
-  #   container_name: horizon
-  #   build:
-  #     context: laravel
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./laravel/:/var/www
-  #   depends_on:
-  #     - db
-  #     - redis
-  #     - rabbitmq
-  #   command: ["php","artisan","horizon"]
-  #   profiles: 
-  #     - workers
-  #   restart: always
-  #   networks:
-  #     - app
+  horizon:
+    container_name: horizon
+    build:
+      context: laravel
+      dockerfile: Dockerfile
+    volumes:
+      - ./laravel/:/var/www
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    command: ["php","artisan","horizon"]
+    profiles: 
+      - workers
+    restart: always
+    networks:
+      - app
 
   schedule:
     container_name: schedule
@@ -83,7 +83,7 @@ services:
     image: postgres:15
     restart: always
     volumes:
-      - ./docker/data:/var/lib/postgres/data
+      - ./docker/data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${DB_DATABASE}
       - POSTGRES_USER=${DB_USERNAME}

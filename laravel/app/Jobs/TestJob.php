@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
@@ -15,7 +16,9 @@ class TestJob implements ShouldQueue
      */
     public function __construct()
     {
-        $this->queue = "default";
+        $this
+            ->onConnection('rabbitmq')
+            ->onQueue('default');
     }
 
     /**
@@ -23,6 +26,11 @@ class TestJob implements ShouldQueue
      */
     public function handle(): void
     {
+        $count = strval(User::count());
+        User::factory()->create([
+            'name' => 'Test User ' . $count,
+            'email' => 'test@example.com '  . $count,
+        ]);
         sleep(10);
     }
 }

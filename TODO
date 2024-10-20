@@ -1,6 +1,9 @@
-- Add horizon logging on dashboard
-- Fix favicon, robots, sitemap error
 - Add horizon + telescope web auth
+
 - Add admin panel (mb Moonshine)
-- Add nginx ssl cert automatization
+
 - Add elasticsearch
+
+- Add tests for all modules on container
+
+- Add nginx ssl cert automatization

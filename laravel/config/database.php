@@ -152,6 +152,13 @@ return [
             'database' => 0,
         ],
 
+        'horizon' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', 'footbar'), //if password otherwise set null
+            'port' => env('REDIS_PORT', 6379),
+            'database' => 0,
+        ],
+
     ],
 
 
