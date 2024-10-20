@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\TestJob;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Http\Request;
 
 class Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        for ($i = 0; $i < 100; $i++)
-            //     TestJob::dispatch();
-            Redis::set("key_" . $i, "asd");
+        dd($request);
+        return "laravel";
     }
 }

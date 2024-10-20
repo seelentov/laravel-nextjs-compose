@@ -2,21 +2,21 @@
 include .env
 
 destroy:
-	docker compose down --rmi all --volumes --remove-orphans
+	docker compose --profile "*" down --rmi all --volumes --remove-orphans
 
 init:
-	@make up
+	@make env
+	docker compose up -d --build
 	docker compose exec app composer install
+	@make fresh
+	docker compose --profile workers up -d 
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
 	docker compose exec app chmod -R 777 storage bootstrap/cache
-	@make fresh
+# @make jwt
 
 up:
-	docker compose up -d
-
-horizon:
-	docker compose exec horizon nohup php artisan horizon
+	docker compose --profile "*" up -d
 
 horizon-status:
 	docker compose exec horizon php artisan horizon:status
@@ -33,11 +33,17 @@ horizon-logs:
 horizon-watch:
 	docker compose logs horizon --follow
 
+schedule-logs:
+	docker compose logs schedule
+
+schedule-watch:
+	docker compose logs schedule --follow
+
 stop:
 	docker compose stop
 
 down:
-	docker compose down --remove-orphans
+	docker compose --profile "*" down --remove-orphans
 
 down-v:
 	docker compose down --remove-orphans --volumes
@@ -68,14 +74,35 @@ logs:
 watch:
 	docker compose logs --follow
 
+web-logs:
+	docker compose logs nginx
+
+web-watch:
+	docker compose logs nginx --follow
+
+nginx-reload:
+	sudo docker compose exec nginx nginx -t && sudo docker compose exec nginx nginx -s reload
+
+next-logs:
+	docker compose logs next
+
+next-watch:
+	docker compose logs next --follow
+
+next-rebuild:
+	docker compose exec next "rm -rf .next && npm run build && npm run start"
+
 app-logs:
 	docker compose logs app
 
 app-watch:
-	docker compose logs app
+	docker compose logs app --follow
 
 bash:
 	docker compose exec app bash
+
+next-bash:
+	docker compose exec next bash
 
 mysql:
 	docker compose exec db mysql -u root
@@ -124,8 +151,15 @@ dump-autoload:
 	docker compose exec app composer dump-autoload
 
 env:
-	cp -rf .env ./laravel 
+	touch .env
+	rm -rf ./laravel/.env
+	rm -rf ./next/.env
+	ln .env ./laravel
+	ln .env ./next
 
 redis:
 	docker compose exec redis redis-cli
 
+
+check:
+	curl -s -o /dev/null -w "%{http_code}\n" http://localhost

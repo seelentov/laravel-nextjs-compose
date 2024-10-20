@@ -1,4 +1,6 @@
 - Add horizon logging on dashboard
-- Add laravel schedule
+- Fix favicon, robots, sitemap error
+- Add horizon + telescope web auth
+- Add admin panel (mb Moonshine)
 - Add nginx ssl cert automatization
 - Add elasticsearch

@@ -1,6 +1,6 @@
 services:
   app:
-    container_name: laravel
+    container_name: laravel-app
     build:
       context: laravel
       dockerfile: Dockerfile
@@ -8,20 +8,61 @@ services:
       - ./laravel/:/var/www
     depends_on:
       - db
+      - redis
+      - rabbitmq
+    command: ["php-fpm"]
     networks:
       - app
 
-  horizon:
-    container_name: horizon
+  next:
+    container_name: next-app
+    build:
+      context: next
+      dockerfile: Dockerfile
+    volumes:
+      - ./next/:/var/app
+    command: sh -c "npm run build && npm run start"
+    ports:
+      - '3000:3000'
+    networks:
+      - app
+
+  # horizon:
+  #   container_name: horizon
+  #   build:
+  #     context: laravel
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./laravel/:/var/www
+  #   depends_on:
+  #     - db
+  #     - redis
+  #     - rabbitmq
+  #   command: ["php","artisan","horizon"]
+  #   profiles: 
+  #     - workers
+  #   restart: always
+  #   networks:
+  #     - app
+
+  schedule:
+    container_name: schedule
     build:
       context: laravel
-      dockerfile: Dockerfile-queue
+      dockerfile: Dockerfile
     volumes:
       - ./laravel/:/var/www
     depends_on:
       - db
+      - redis
+      - rabbitmq
+    command: ["php", "artisan", "schedule:run"]
+    profiles: 
+      - workers
+    restart: always
     networks:
       - app
+  
 
   # db:
   #   image: mysql:8.0

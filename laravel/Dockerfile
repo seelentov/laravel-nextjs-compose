@@ -38,5 +38,3 @@ COPY . /var/www
 COPY --chown=www:www . /var/www
 
 USER www
-
-CMD ["php-fpm"]
