@@ -9,6 +9,7 @@ init:
 	docker compose up -d --build
 	docker compose exec app composer install
 	@make fresh
+	@make seed
 	docker compose --profile workers up -d 
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
@@ -159,7 +160,6 @@ env:
 
 redis:
 	docker compose exec redis redis-cli
-
 
 check:
 	curl -s -o /dev/null -w "%{http_code}\n" http://localhost

@@ -2,14 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 
-class Controller
-{
-    public function index(Request $request)
-    {
-        dd(User::all());
-        return "laravel";
-    }
-}
+abstract class Controller extends BaseController {}
