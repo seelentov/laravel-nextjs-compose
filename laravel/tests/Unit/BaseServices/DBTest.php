@@ -3,12 +3,13 @@
 namespace Tests\Unit\BaseServices;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class DBTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
+
 
     public function test_it_can_store_new_user()
     {
