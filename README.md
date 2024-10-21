@@ -4,19 +4,19 @@
 
 ### Key Features:
 
-• **Laravel:** Includes all necessary components for running your Laravel application:
-    * PHP
-    * Composer
-    * Laravel
-    * Laravel Schedule
-• **Next.js:** (Optional) Includes the Next.js framework for frontend development.
-• **Database:** Supports both PostgreSQL and MySQL.
-• **RabbitMQ:** For implementing asynchronous tasks.
-• **Horizon:** Provides a simple interface for managing and monitoring queues.
-• **Telescope:** A tool for debugging and analyzing your Laravel application.
-• **Filament:** A powerful administrative panel for managing your application.
-• **Nginx:** As a web server for reverse proxying requests to the Laravel and Next.js applications.
-• **Makefile:** Provides a set of convenient commands for interacting with the Docker image.
+    * **Laravel:** Includes all necessary components for running your Laravel application:
+        * PHP
+        * Composer
+        * Laravel
+        * Laravel Schedule
+    * **Next.js:** (Optional) Includes the Next.js framework for frontend development.
+    * **Database:** Supports both PostgreSQL and MySQL.
+    * **RabbitMQ:** For implementing asynchronous tasks.
+    * **Horizon:** Provides a simple interface for managing and monitoring queues.
+    * **Telescope:** A tool for debugging and analyzing your Laravel application.
+    * **Filament:** A powerful administrative panel for managing your application.
+    * **Nginx:** As a web server for reverse proxying requests to the Laravel and Next.js applications.
+    * **Makefile:** Provides a set of convenient commands for interacting with the Docker image.
 
 ### Advantages:
 
