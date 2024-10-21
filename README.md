@@ -33,7 +33,7 @@
 
 1. Клонируйте репозиторий:
 ```
-git clone <репозиторий>
+git clone https://github.com/seelentov/laravel-nextjs-compose.git
 ```
 
 2. Настройте файл .env:
