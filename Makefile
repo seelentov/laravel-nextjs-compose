@@ -109,6 +109,12 @@ app-logs:
 app-watch:
 	docker compose logs app --follow
 
+es-logs:
+	docker compose logs elasticsearch
+
+es-watch:
+	docker compose logs elasticsearch --follow
+
 bash:
 	docker compose exec app bash
 
@@ -180,3 +186,9 @@ elastic-reindex:
 
 backup:
 	tar -czvf backups/$(shell date +"%d-%m-%Y-%H:%M:%S").tar.gz --exclude=backups/* docker/*
+
+
+ssl:
+	docker compose exec nginx apt update
+	docker compose exec nginx apk add certbot certbot-nginx
+	docker compose exec nginx certbot --nginx

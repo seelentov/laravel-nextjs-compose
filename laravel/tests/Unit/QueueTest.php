@@ -10,13 +10,6 @@ use Tests\TestCase;
 class QueueTest extends TestCase
 {
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('horizon:continue-supervisor', ['name' => 'supervisor-test']);
-    }
-
     protected function tearDown(): void
     {
         $this->artisan('horizon:pause-supervisor', ['name' => 'supervisor-test']);
@@ -24,24 +17,35 @@ class QueueTest extends TestCase
         parent::tearDown();
     }
 
+    private function getSize()
+    {
+        return Queue::connection('rabbitmq')->size('test');
+    }
+
     public function test_send_message_to_rabbitmq()
     {
+        $size = $this->getSize();
+
         TestJob::dispatch();
 
-        // Проверка, что сообщение было отправлено
-        $this->assertTrue(Queue::connection('rabbitmq')->size('test') > 0);
+        $size2 = $this->getSize();
+
+        $this->assertTrue($size === ($size2 - 1));
     }
 
     public function test_send_message_to_rabbitmq_and_it_got_by_horizon()
     {
-        // Отправка сообщения в очередь
         TestJob::dispatch();
 
-        // Проверка, что сообщение было отправлено
-        $this->assertTrue(Queue::connection('rabbitmq')->size('test') > 0);
+        $this->artisan('horizon:continue-supervisor', ['name' => 'supervisor-test']);
 
-        sleep(5);
+        for ($i = 0; $this->getSize() !== 0; $i++) {
+            if ($i === 10) {
+                throw new \Exception("Queue not cleared by horizon");
+            }
+            sleep(1);
+        }
 
-        $this->assertTrue(Queue::connection('rabbitmq')->size('test') === 0);
+        $this->assertTrue(true);
     }
 }

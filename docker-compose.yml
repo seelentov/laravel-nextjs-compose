@@ -102,6 +102,7 @@ services:
     volumes:
       - ./laravel/:/var/www
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/letsencrypt:/etc/letsencrypt
     networks:
       - app
 
@@ -130,29 +131,6 @@ services:
       ports:
         - ${REDIS_PORT}:${REDIS_PORT}
       networks:
-      - app
-  elasticsearch:
-    container_name: elasticsearch
-    image: elasticsearch:8.6.2
-    volumes:
-      - ./docker/elasticsearch:/usr/share/elasticsearch/data
-    environment:
-      - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
-      - NODE_NAME=elasticsearch1
-      - cluster.name=my-elasticsearch-cluster
-      - discovery.zen.ping.unicast.hosts=elasticsearch1,elasticsearch2
-      - xpack.security.enabled=false
-      - bootstrap.memory_lock=true
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    restart: always
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    networks:
       - app
 
 networks:
