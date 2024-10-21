@@ -2,7 +2,7 @@ include .env
 
 # Инициализация проекта
 init:
-	# Создает файл .env, если он отсутствует
+	# Создает файл .env, если он отсутствует, создает ссылку
 	@make env
 	# Строит и запускает контейнеры в фоновом режиме
 	docker compose up -d --build
@@ -12,7 +12,7 @@ init:
 	docker compose exec app php artisan filament:install --scaffold --tables --forms
 	# Очищает базу данных и запускает миграции
 	@make fresh
-	# Заполняет базу данных тестовыми данными, включая администратора
+	# Создает администратора
 	@make seed-admin
 	# Запускает воркеров в фоновом режиме
 	docker compose --profile workers up -d

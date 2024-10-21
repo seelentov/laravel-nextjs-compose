@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\BaseServices;
 
 use App\Jobs\TestJob;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 

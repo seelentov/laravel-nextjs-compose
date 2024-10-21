@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\BaseServices;
 
 use Illuminate\Support\Facades\Redis;
 use Tests\TestCase;
