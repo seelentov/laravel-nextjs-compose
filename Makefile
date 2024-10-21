@@ -16,8 +16,9 @@ init:
 	@make seed-admin
 	# Запускает воркеров в фоновом режиме
 	docker compose --profile workers up -d
-	# Приостанавливает супервайзер
-	docker compose exec horizon php artisan horizon:pause-supervisor supervisor-test
+	sleep 5s
+	# Приостанавливает тестировочный супервайзер
+	@make stop-test-horizon
 	# Генерирует ключ приложения
 	docker compose exec app php artisan key:generate
 	# Создает символические ссылки для директории storage
@@ -29,8 +30,9 @@ init:
 up:
 	# Запускает все сервисы в фоновом режиме
 	docker compose --profile "*" up -d
-	# Приостанавливает супервайзер
-	docker compose exec horizon php artisan horizon:pause-supervisor supervisor-test
+	sleep 5s
+	# Приостанавливает тестировочный супервайзер
+	@make stop-test-horizon
 
 # Остановка контейнеров
 stop:
@@ -152,6 +154,10 @@ horizon-logs:
 horizon-watch:
 	docker compose logs horizon --follow
 
+# Приостанавливает тестировочный супервайзер
+stop-test-horizon:
+	docker compose exec horizon php artisan horizon:pause-supervisor supervisor-test
+
 # Вывод логов планировщика задач
 schedule-logs:
 	docker compose logs schedule
@@ -174,6 +180,7 @@ setenv:
 	# @make setenv APP_ENV=production
 	# Добавляет переменную окружения в файл .env
 	echo "export $1=$2" >> .env
+
 
 # Открыть bash-консоль в контейнере app
 bash:

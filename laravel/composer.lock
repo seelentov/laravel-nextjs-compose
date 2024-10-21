@@ -11219,7 +11219,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "elasticsearch/elasticsearch": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
