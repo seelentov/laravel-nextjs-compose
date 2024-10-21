@@ -9,7 +9,7 @@ init:
 	docker compose up -d --build
 	docker compose exec app composer install
 	@make fresh
-	@make seed
+	@make seed-admin
 	docker compose --profile workers up -d 
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
@@ -63,6 +63,9 @@ migrate:
 seed:
 	docker compose exec app php artisan db:seed
 
+seed-admin:
+	docker compose exec app php artisan db:seed --class=AdminSeeder
+
 fresh:
 	docker compose exec app php artisan migrate:fresh
 
@@ -91,8 +94,12 @@ next-watch:
 	docker compose logs next --follow
 
 next-rebuild:
-	docker compose exec next "rm -rf .next && npm run build && npm run start"
+	@make next-clear
+	docker compose exec next npm run build
 
+next-clear:
+	rm -rf ./next/.next
+	
 app-logs:
 	docker compose logs app
 

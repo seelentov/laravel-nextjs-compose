@@ -1,6 +1,0 @@
-{
-    "require": {
-        "spatie/laravel-ignition": "^2.8",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "^14.1"
-    }
-}

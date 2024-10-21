@@ -1,15 +1,11 @@
-- Add horizon + telescope web auth
-
-- Add admin panel (mb Moonshine)
-
 - Add elasticsearch
 
 - Add auto-dump docker data daily
 
-- Add ufw snippet
-
 - Add github actions ci/cd snippet
 
 - Add tests for all modules on container
+
+- Add ufw snippet
 
 - Add nginx ssl cert automatization
