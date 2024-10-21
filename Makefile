@@ -11,7 +11,8 @@ init:
 	docker compose exec app php artisan filament:install --scaffold --tables --forms
 	@make fresh
 	@make seed-admin
-	docker compose --profile workers up -d 
+	docker compose --profile workers up -d\
+	docker compose exec horizon php artisan horizon:pause-supervisor supervisor-test
 	docker compose exec app php artisan key:generate
 	docker compose exec app php artisan storage:link
 	docker compose exec app chmod -R 777 storage bootstrap/cache
@@ -19,6 +20,7 @@ init:
 
 up:
 	docker compose --profile "*" up -d
+	docker compose exec horizon php artisan horizon:pause-supervisor supervisor-test
 
 horizon-status:
 	docker compose exec horizon php artisan horizon:status

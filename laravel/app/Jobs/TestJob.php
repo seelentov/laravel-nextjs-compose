@@ -18,7 +18,7 @@ class TestJob implements ShouldQueue
     {
         $this
             ->onConnection('rabbitmq')
-            ->onQueue('default');
+            ->onQueue('test');
     }
 
     /**
@@ -26,11 +26,6 @@ class TestJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $count = strval(User::count());
-        User::factory()->create([
-            'name' => 'Test User ' . $count,
-            'email' => 'test@example.com '  . $count,
-        ]);
-        sleep(10);
+        sleep(5);
     }
 }

@@ -10,6 +10,8 @@ class RedisTest extends TestCase
     /**
      * A basic unit test example.
      */
+
+
     public function test_it_can_set_get(): void
     {
         Redis::set("foo", "bar");
