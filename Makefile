@@ -192,3 +192,10 @@ ssl:
 	docker compose exec nginx apt update
 	docker compose exec nginx apk add certbot certbot-nginx
 	docker compose exec nginx certbot --nginx
+
+ufw:
+	apt install ufw
+	ufw allow ssh
+	ufw allow http
+	ufw allow https
+	ufw enable

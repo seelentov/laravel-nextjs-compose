@@ -1,5 +1,2 @@
-- Add tests for all modules on container
-
-- Add ufw snippet
-
-- Add nginx ssl cert automatization
+- Add elasticsearch
+- Add github actions ci\cd snippet

@@ -114,7 +114,7 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     ports:
-        - "15672:15672"
+        - ${RABBITMQ_ADMIN_PORT}:${RABBITMQ_ADMIN_PORT}
         - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
     restart: always
     volumes:
