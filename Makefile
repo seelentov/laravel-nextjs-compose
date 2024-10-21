@@ -171,3 +171,7 @@ redis:
 
 check:
 	curl -s -o /dev/null -w "%{http_code}\n" http://localhost
+
+
+elastic-reindex:
+	docker compose exec app php artisan search:reindex

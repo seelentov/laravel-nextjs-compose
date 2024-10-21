@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'search' => [
+        'enabled' => env('ELASTICSEARCH_ENABLED', false),
+        'hosts' => explode(',', env('ELASTICSEARCH_HOSTS')),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
