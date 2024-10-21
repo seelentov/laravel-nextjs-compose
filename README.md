@@ -1,56 +1,62 @@
 ## Dockerized Laravel & Next.js Application
 
-Этот репозиторий содержит Docker-образ, предоставляющий готовое решение для запуска Laravel и Next.js приложения в едином окружении.
+<p>This repository contains a Docker image that provides a ready-to-use solution for running your Laravel and Next.js applications in a unified environment.</p>
 
-Ключевые особенности:
+### Key Features:
 
-• Laravel: Включает в себя все необходимые компоненты для запуска Laravel-приложения: 
+• **Laravel:** Includes all necessary components for running your Laravel application:
     * PHP
     * Composer
     * Laravel
     * Laravel Schedule
-• Next.js: (Опционально) Включает в себя Next.js framework для frontend разработки.
-• База данных: Поддержка как PostgreSQL, так и MySQL.
-• RabbitMQ: Для реализации асинхронных задач.
-• Horizon: Предоставляет простой интерфейс для управления и мониторинга очередей.
-• Telescope: Инструмент для отладки и анализа вашего Laravel приложения.
-• Filament: Мощная административная панель для управления вашим приложением.
-• Nginx: В качестве веб-сервера для обратной проксировки запросов на Laravel и Next.js приложения.
-• Makefile: Предоставляет набор удобных команд для взаимодействия с Docker-образом.
+• **Next.js:** (Optional) Includes the Next.js framework for frontend development.
+• **Database:** Supports both PostgreSQL and MySQL.
+• **RabbitMQ:** For implementing asynchronous tasks.
+• **Horizon:** Provides a simple interface for managing and monitoring queues.
+• **Telescope:** A tool for debugging and analyzing your Laravel application.
+• **Filament:** A powerful administrative panel for managing your application.
+• **Nginx:** As a web server for reverse proxying requests to the Laravel and Next.js applications.
+• **Makefile:** Provides a set of convenient commands for interacting with the Docker image.
 
-Преимущества:
+### Advantages:
 
-• Простота развертывания: Легко установить и запустить приложение в любой среде.
-• Удобство в использовании: Все зависимости установлены и настроены автоматически.
-• Производительность: Оптимизация для максимально возможной производительности.
-• Безопасность: Обеспечивает изоляцию вашего приложения от других систем.
+• **Ease of deployment:** Easily install and run your application in any environment.
+• **User-friendliness:** All dependencies are automatically installed and configured.
+• **Performance:** Optimized for maximum performance.
+• **Security:** Provides isolation of your application from other systems.
 
-Инструкция по установке:
+### Installation Instructions:
 
-1. Клонируйте репозиторий:
-git clone <репозиторий>
+1. Clone the repository:
 
-2. Настройте файл .env:
-    * Укажите имя пользователя, пароль и хост для базы данных.
-    * Задайте имя вашего приложения.
-    * Укажите необходимые настройки для сервисов.
-    * Раскоментируйте нужное и закоментируйте лишнее в docker-compose.yml.
+```
+git clone <repository>
+```
 
-3. Запустите Docker-образ:
-    * make init
 
-4. Доступ к приложению: 
-    * Доступ к Next.js приложению: http://localhost
-    * Доступ к Telescope приложению: http://localhost/logging/telescope
-    * Доступ к Horizon приложению: http://localhost/logging/horizon
-    * Доступ к Filament приложению: http://localhost/admin
-    * Доступ к Laravel приложению через настройку роутинга в routes/api.php (Все запросы /api* идут на Laravel)
+2. Configure the .env file:
+    * Specify the username, password, and host for your database.
+    * Set the name of your application.
+    * Specify the necessary settings for the services.
+    * Uncomment the needed and comment out the unnecessary parts in docker-compose.yml.
 
-Внутри Makefile есть комментарии с описанием работы каждой функции
+3. Run the Docker image:
+```
+make init
+```
 
-Дополнительные возможности:
+4. Access the application:
+    * Access the Next.js application: http://localhost
+    * Access the Telescope application: http://localhost/logging/telescope
+    * Access the Horizon application: http://localhost/logging/horizon
+    * Access the Filament application: http://localhost/admin
+    * Access the Laravel application through routing settings in routes/api.php (All requests to /api* go to Laravel)
 
-• Возможность отключения Next.js и использования Laravel для frontend.
-• Поддержка горячей перезагрузки для быстрой разработки.
+The Makefile has comments describing the operation of each function.
 
-*В файле TODO список задач, которые планируется реализовать в будущем, следите за обновлениями
+### Additional Features:
+
+• The ability to disable Next.js and use Laravel for the frontend.
+• Hot reloading support for faster development.
+
+*The TODO file contains a list of tasks that are planned to be implemented in the future, stay tuned for updates.*
