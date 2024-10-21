@@ -4,8 +4,6 @@
 
 Ключевые особенности:
 <ul>
-
-<<<<<<< HEAD
 <li>Laravel: Включает в себя все необходимые компоненты для запуска Laravel-приложения: 
     <ul>
         <li>PHP</li>
@@ -35,7 +33,7 @@
 
 1. Клонируйте репозиторий:
 ```
-git clone <репозиторий>
+git clone https://github.com/seelentov/laravel-nextjs-compose.git
 ```
 
 2. Настройте файл .env:
