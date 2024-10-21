@@ -1,5 +1,3 @@
-- Add github actions ci/cd snippet
-
 - Add tests for all modules on container
 
 - Add ufw snippet
