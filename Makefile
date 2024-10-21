@@ -8,6 +8,7 @@ init:
 	@make env
 	docker compose up -d --build
 	docker compose exec app composer install
+	docker compose exec app php artisan filament:install --scaffold --tables --forms
 	@make fresh
 	@make seed-admin
 	docker compose --profile workers up -d 
