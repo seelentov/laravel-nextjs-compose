@@ -6,5 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
-    Route::get('', [Controller::class, 'index']);
+    Route::get('', function () {
+        return 'hi.';
+    });
 });
