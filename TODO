@@ -1,7 +1,3 @@
-- Add elasticsearch
-
-- Add auto-dump docker data daily
-
 - Add github actions ci/cd snippet
 
 - Add tests for all modules on container

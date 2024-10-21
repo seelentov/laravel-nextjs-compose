@@ -135,7 +135,7 @@ services:
     container_name: elasticsearch
     image: elasticsearch:8.6.2
     volumes:
-      - .docker/elasticsearch:/usr/share/elasticsearch/data
+      - ./docker/elasticsearch:/usr/share/elasticsearch/data
     environment:
       - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
       - NODE_NAME=elasticsearch1

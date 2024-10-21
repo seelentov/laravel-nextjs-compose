@@ -175,3 +175,6 @@ check:
 
 elastic-reindex:
 	docker compose exec app php artisan search:reindex
+
+backup:
+	tar -czvf backups/$(shell date +"%d-%m-%Y-%H:%M:%S").tar.gz --exclude=backups/* docker/*
