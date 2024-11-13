@@ -9,7 +9,3 @@ Route::group(["prefix" => "logging", 'middleware' => 'web'], function () {
     Route::post('auth', [LoggingController::class, 'auth'])->name('logging_auth');
     Route::get('auth', [LoggingController::class, 'login'])->name('logging_login');
 });
-
-Route::get('storage/{pathToFile}', function ($pathToFile) {
-    dd($pathToFile);
-});

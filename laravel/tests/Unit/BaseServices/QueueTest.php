@@ -1,50 +1,50 @@
 <?php
 
-// namespace Tests\Unit\BaseServices;
+namespace Tests\Unit\BaseServices;
 
-// use App\Jobs\TestJob;
-// use Illuminate\Support\Facades\Queue;
-// use Tests\TestCase;
+use App\Jobs\TestJob;
+use Illuminate\Support\Facades\Queue;
+use Tests\TestCase;
 
-// class QueueTest extends TestCase
-// {
+class QueueTest extends TestCase
+{
 
-//     protected function tearDown(): void
-//     {
-//         $this->artisan('horizon:pause-supervisor', ['name' => 'supervisor-test']);
+    protected function tearDown(): void
+    {
+        $this->artisan('horizon:pause-supervisor', ['name' => 'supervisor-test']);
 
-//         parent::tearDown();
-//     }
+        parent::tearDown();
+    }
 
-//     private function getSize()
-//     {
-//         return Queue::connection('rabbitmq')->size('test');
-//     }
+    private function getSize()
+    {
+        return Queue::connection('rabbitmq')->size('test');
+    }
 
-//     public function test_send_message_to_rabbitmq()
-//     {
-//         $size = $this->getSize();
+    public function test_send_message_to_rabbitmq()
+    {
+        $size = $this->getSize();
 
-//         TestJob::dispatch();
+        TestJob::dispatch();
 
-//         $size2 = $this->getSize();
+        $size2 = $this->getSize();
 
-//         $this->assertTrue($size === ($size2 - 1));
-//     }
+        $this->assertTrue($size === ($size2 - 1));
+    }
 
-//     public function test_send_message_to_rabbitmq_and_it_got_by_horizon()
-//     {
-//         TestJob::dispatch();
+    public function test_send_message_to_rabbitmq_and_it_got_by_horizon()
+    {
+        TestJob::dispatch();
 
-//         $this->artisan('horizon:continue-supervisor', ['name' => 'supervisor-test']);
+        $this->artisan('horizon:continue-supervisor', ['name' => 'supervisor-test']);
 
-//         for ($i = 0; $this->getSize() !== 0; $i++) {
-//             if ($i === 10) {
-//                 throw new \Exception("Queue not cleared by horizon");
-//             }
-//             sleep(1);
-//         }
+        for ($i = 0; $this->getSize() !== 0; $i++) {
+            if ($i === 10) {
+                throw new \Exception("Queue not cleared by horizon");
+            }
+            sleep(1);
+        }
 
-//         $this->assertTrue(true);
-//     }
-// }
+        $this->assertTrue(true);
+    }
+}

@@ -1,6 +1,6 @@
 services:
-  laravel:
-    container_name: laravel
+  app:
+    container_name: laravel-app
     build:
       context: laravel
       dockerfile: Dockerfile
@@ -9,45 +9,59 @@ services:
     depends_on:
       - db
       - redis
+      - rabbitmq
     command: ["php-fpm"]
     networks:
       - app
 
-  # horizon:
-  #   container_name: horizon
-  #   build:
-  #     context: laravel
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./laravel/:/var/www
-  #   depends_on:
-  #     - db
-  #     - redis
-  #     - rabbitmq
-  #   command: ["php","artisan","horizon"]
-  #   profiles: 
-  #     - workers
-  #   restart: always
-  #   networks:
-  #     - app
+  next:
+    container_name: next-app
+    build:
+      context: next
+      dockerfile: Dockerfile
+    volumes:
+      - ./next/:/var/app
+    command: sh -c "npm run build && npm run ${NEXT_RUN}"
+    ports:
+      - '3000:3000'
+    networks:
+      - app
 
-  # schedule:
-  #   container_name: schedule
-  #   build:
-  #     context: laravel
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./laravel/:/var/www
-  #   depends_on:
-  #     - db
-  #     - redis
-  #     - rabbitmq
-  #   command: ["php", "artisan", "schedule:run"]
-  #   profiles: 
-  #     - workers
-  #   restart: always
-  #   networks:
-  #     - app
+  horizon:
+    container_name: horizon
+    build:
+      context: laravel
+      dockerfile: Dockerfile
+    volumes:
+      - ./laravel/:/var/www
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    command: ["php","artisan","horizon"]
+    profiles: 
+      - workers
+    restart: always
+    networks:
+      - app
+
+  schedule:
+    container_name: schedule
+    build:
+      context: laravel
+      dockerfile: Dockerfile
+    volumes:
+      - ./laravel/:/var/www
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    command: ["php", "artisan", "schedule:run"]
+    profiles: 
+      - workers
+    restart: always
+    networks:
+      - app
   
 
   # db:
@@ -82,35 +96,30 @@ services:
   nginx:
     container_name: nginx
     image: nginx:stable-alpine
-    labels:
-      proxy_nginx: "ssl"
     restart: always
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./laravel/:/var/www
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/nginx/certs:/etc/nginx/certs
-      - /tmp/letsencrypt/www:/tmp/letsencrypt/www
     networks:
       - app
 
-  # rabbitmq:
-  #   image: rabbitmq:3-management
-  #   container_name: rabbitmq
-  #   hostname: ${RABBITMQ_HOST}
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-  #     RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-  #   ports:
-  #       - ${RABBITMQ_ADMIN_PORT}:${RABBITMQ_ADMIN_PORT}
-  #       - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
-  #   restart: always
-  #   volumes:
-  #     - ./docker/rabbitmq:/var/lib/rabbitmq
-  #   networks:
-  #     - app
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: ${RABBITMQ_HOST}
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+        - ${RABBITMQ_ADMIN_PORT}:${RABBITMQ_ADMIN_PORT}
+        - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
+    restart: always
+    volumes:
+      - ./docker/rabbitmq:/var/lib/rabbitmq
+    networks:
+      - app
 
   redis:
       image: redis:alpine
