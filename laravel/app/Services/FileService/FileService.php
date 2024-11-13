@@ -6,6 +6,8 @@ use App\Models\File;
 use App\Services\Service;
 use App\Services\UserService\UserService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\Storage;
 
 class FileService extends Service implements IFileService
 {
@@ -40,9 +42,9 @@ class FileService extends Service implements IFileService
 
         $uniqueFilename = uniqid() . '_' . $filename . '.' . $file->getClientOriginalExtension();
 
-        $filePath = 'uploads/' . $userFolder . '/' . $uniqueFilename;
+        $filePath = $userFolder . '/' . $uniqueFilename;
 
-        $file->storeAs('uploads/' . $userFolder, $uniqueFilename, 'public');
+        $file->storeAs($userFolder, $uniqueFilename, 'public');
 
         $fileSize = $file->getSize();
 
@@ -65,6 +67,15 @@ class FileService extends Service implements IFileService
 
     public function delete(int $id): void
     {
+        $file = $this->files->find($id);
+
+        $filePath = $file->path;
+
+        if (Storage::disk('public')->exists($filePath)) {
+            Storage::disk('public')->delete($filePath);
+        } else {
+        }
+
         $this->files->destroy($id);
     }
 }
